@@ -1,0 +1,130 @@
+
+.modal {
+    display: block; 
+    position: fixed;
+    z-index: 9999; 
+    left: 0;
+    top: 0;
+    width: 100vw; 
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.9);
+  }
+  
+  .modal-content {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content img, .modal-content video {
+    display: block;
+    margin: auto;
+    max-height: 85vh;
+    max-width: 85vw;
+  }
+
+  .title {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    transition: 0.3s;
+  }
+  
+  .modal-header {
+    margin: auto;
+    margin-top: 25px;
+    display: block;
+    width: 80%;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+  }
+  
+  .modal-caption {
+    position: absolute;
+    margin: auto;
+    text-align: center;
+    display: block;
+    max-width: 80%;
+    color: #ccc;
+    padding: 10px 0;
+    bottom: 25px;
+    margin-right: auto;
+    margin-left: auto;
+    left: 0px;
+    right: 0px;
+  }
+  
+  .modal-content, #caption {  
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+  
+  .modal-control {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 15%;
+    margin-right: auto;
+    margin-left: auto;
+    left: 0px;
+    right: 0px;
+  }
+
+  .control-overlay {
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 25px;
+    padding: 25px;
+  }
+  
+  @-webkit-keyframes zoom {
+    0% {-webkit-transform:scale(0)} 
+    100% {-webkit-transform:scale(1)}
+  }
+  
+  @keyframes zoom {
+    0% {transform:scale(0)} 
+    100% {transform:scale(1)}
+  }
+  
+  .index {
+    position: absolute;
+    top: 15px;
+    left: 35px;
+    color: #f1f1f1;
+    transition: 0.3s;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: darkred;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .controls {
+    color: #f1f1f1;
+    padding-right: 20px;
+    padding-left: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  .controls:hover {
+    color: darkcyan;
+  }
+
+  .show-viewer {
+      display: block;
+  }

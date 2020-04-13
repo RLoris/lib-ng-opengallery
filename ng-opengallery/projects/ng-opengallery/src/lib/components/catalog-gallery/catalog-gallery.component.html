@@ -1,0 +1,36 @@
+
+<div class="container"
+    [style.height.px]='prefHeight * 1.2'>
+    <div class="row">
+      <div *ngFor='let mediaContainer of datasource; let idx = index'
+        [style.height.px]='prefHeight'
+        [style.width.px]='getWidth(mediaContainer)'
+        [style.margin.px]='spacing'
+        class="col" 
+        (click)='select(idx)'>
+        <div class="box" 
+            [style.height.px]='prefHeight'
+            [style.width.px]='getWidth(mediaContainer)'
+            snInViewport 
+            (inViewportChange)="onInViewportChange($event, mediaContainer)">
+            <img *ngIf='mediaContainer.ready && mediaContainer.media.type === "img"' 
+                class="media" 
+                [src]='mediaContainer.media.previewUrl' 
+                [style.height.px]='prefHeight'
+                [height]='prefHeight'
+                (load)='loadMedia(mediaContainer, $event.target)'
+                (error)='errorMedia(mediaContainer, $event.target, idx)'>
+            <video *ngIf='mediaContainer.ready && mediaContainer.media.type === "video"' 
+                class="media" 
+                [src]='mediaContainer.media.previewUrl' 
+                [style.height.px]='prefHeight'
+                [height]='prefHeight'
+                (loadedmetadata)='loadMedia(mediaContainer, $event.target)'
+                (error)='errorMedia(mediaContainer, $event.target, idx)'
+                autoplay 
+                loop >
+            </video>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="carousel-container">
+    <div class="carousel" (click)='select(currentIdx)'>
+      <img *ngIf='datasource[currentIdx].media.type === "img"' 
+        [class]="this.animationClass"
+        [src]="datasource[currentIdx].media.previewUrl" 
+        [style.height.px]='prefHeight'
+        style="width: 100%; object-fit: cover;"
+        (load)='loadMedia(datasource[currentIdx],$event.target)'
+        (error)='errorMedia(datasource[currentIdx],currentIdx)'>
+      <video *ngIf='datasource[currentIdx].media.type === "video"' 
+        [class]="this.animationClass"
+        [src]='datasource[currentIdx].media.previewUrl'
+        [style.height.px]='prefHeight' 
+        style="width: 100%; object-fit: cover;" 
+        autoplay 
+        loop
+        (loadedmetadata)='loadMedia(datasource[currentIdx],$event.target)'
+        (error)='errorMedia(datasource[currentIdx],currentIdx)'>
+      </video>
+      <div class="text caption-container" (mouseover)='displayDescription()' (mouseout)='hideDescription()'>
+          <h2><b>{{datasource[currentIdx].media.title}}</b></h2>
+          <p [class.hide-desc]='!this.showDescription' class="popup">{{datasource[currentIdx].media.description}}</p>
+          <div style="text-align:center;display: flex;justify-content: center;margin-bottom: 5px;">
+            <span class="dot" [class.current]='idx === currentIdx' (click)='display($event,idx)' *ngFor='let m of datasource; let idx = index' ></span> 
+          </div>
+      </div>
+    </div>
+    
+    <span class="prev" (click)='prev()'>&#10094;</span>
+    <span class="next" (click)="next()">&#10095;</span>
+  
+</div>

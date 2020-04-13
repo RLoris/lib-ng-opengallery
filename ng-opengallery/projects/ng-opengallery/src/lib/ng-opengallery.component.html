@@ -1,0 +1,31 @@
+<media-viewer *ngIf='this.config && this.config.viewerEnabled && this._datasource'
+    [datasource]='this._datasource'
+    [diaporama]='this.config.diaporamaDuration'
+    [mediaIdx]='this.mediaIdx'
+    [active]='this.showViewer'>
+</media-viewer>
+
+<div *ngIf='this._datasource && this.config' 
+    [ngSwitch]='this.config.layout' 
+    class="center">
+    <carousel-gallery *ngSwitchCase="'CAROUSEL'"
+        [diaporama]='this.config.diaporamaDuration'
+        [prefHeight]='this.config.prefMediaHeight'
+        [datasource]='this._datasource'>
+    </carousel-gallery>
+    <catalog-gallery *ngSwitchCase="'CATALOG'"
+        [datasource]='this._datasource' 
+        [prefHeight]='this.config.prefMediaHeight'
+        [spacing]='this.config.spacing'>
+    </catalog-gallery>
+    <masonry-gallery *ngSwitchCase="'MASONRY'" 
+        [datasource]='this._datasource'
+        [prefHeight]='this.config.prefMediaHeight'
+        [spacing]='this.config.spacing'>
+    </masonry-gallery>
+    <simple-gallery *ngSwitchCase="'SIMPLE'" 
+        [datasource]='this._datasource'
+        [prefHeight]='this.config.prefMediaHeight'
+        [spacing]='this.config.spacing'>
+    </simple-gallery>
+</div>

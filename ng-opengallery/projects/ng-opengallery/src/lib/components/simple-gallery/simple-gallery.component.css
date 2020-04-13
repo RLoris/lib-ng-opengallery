@@ -1,0 +1,19 @@
+.gallery {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+  
+.item-gallery {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    display: inline-block;
+}
+  
+img, video {
+    margin: 0;
+    padding: 0;
+}
+  
