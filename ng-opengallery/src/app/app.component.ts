@@ -88,7 +88,6 @@ export class AppComponent {
     this.data = [];
     for (let idx = 0; idx < files.length; idx++) {
       const f = files[idx];
-      console.log(f);
       if(f.type.match('image/*')) {
         this.data.push(new Media(this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(f)), f.name, 'img'));
       } else if(f.type.match('video/*')) {

@@ -11,7 +11,7 @@ Try it out here: [DEMO](https://rloris.github.io/lib-ng-opengallery/) or clone t
 * Fast & efficient gallery rendering
 * Loads content when they enter the viewport
 * Supports video/image mixed in the gallery
-* Play/Pause the video when the enter/exit the viewport
+* Play/Pause the video when the enter/exit the viewport (some browser block autoplay)
 * Different layouts to choose from and customise the way you want it (simple, catalog, carousel, masonry)
 * Include a media viewer modal to click and view the media (diaporama support, keystroke support)
 * Automatically hides media when they cannot be loaded
