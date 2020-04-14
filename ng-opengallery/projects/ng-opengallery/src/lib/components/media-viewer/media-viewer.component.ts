@@ -60,7 +60,7 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
   
   private _active: boolean = false;
 
-  private diaporamaId = null;
+  diaporamaId = null;
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {

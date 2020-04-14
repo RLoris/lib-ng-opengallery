@@ -1,5 +1,29 @@
 {
   "name": "lib-ng-opengallery",
+  "author": {
+    "name": "RLoris",
+    "url": "https://github.com/RLoris"
+  },
+  "displayName": "OpenGallery",
+  "keywords": [
+    "gallery",
+    "image",
+    "video",
+    "lazy loading",
+    "viewport",
+    "viewer",
+    "carousel",
+    "simple",
+    "catalog",
+    "netflix",
+    "masonry",
+    "diaporama"
+  ],
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/RLoris/lib-ng-opengallery"
+  },
+  "license": "MIT",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

@@ -1,24 +1,69 @@
-# NgOpengallery
+# Opengallery
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
+Opengallery is an Angular library component for efficient gallery rendering and interactions (images & videos). The gallery layout is responsive for all devices and loads the content only if it's in the viewport. A media viewer is shipped and included with this library. You can configure the component the way you want.
 
-## Code scaffolding
+# Demo
 
-Run `ng generate component component-name --project ng-opengallery` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-opengallery`.
-> Note: Don't forget to add `--project ng-opengallery` or else it will be added to the default project in your `angular.json` file. 
+Try it out here: [DEMO](https://rloris.github.io/lib-ng-opengallery/) or clone this [repo](https://github.com/RLoris/lib-ng-opengallery) and run `ng serve` for a full demo of opengallery. Built with angular version 9.
 
-## Build
+# Features
 
-Run `ng build ng-opengallery` to build the project. The build artifacts will be stored in the `dist/` directory.
+* Fast & efficient gallery rendering
+* Loads content when they enter the viewport
+* Supports video/image mixed in the gallery
+* Play/Pause the video when the enter/exit the viewport
+* Different layouts to choose from and customise the way you want it (simple, catalog, carousel, masonry)
+* Include a media viewer modal to click and view the media (diaporama support, keystroke support)
+* Automatically hides media when they cannot be loaded
 
-## Publishing
+# How to use
 
-After building your library with `ng build ng-opengallery`, go to the dist folder `cd dist/ng-opengallery` and run `npm publish`.
+  First install the package with the command `npm i ng-opengallery`
 
-## Running unit tests
+  Then, in your module.ts, import the library module
 
-Run `ng test ng-opengallery` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+import { NgOpengalleryModule } from 'ng-opengallery';
+```
 
-## Further help
+  And add it to your imports modules, then you can use it in any component.html
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```
+<ng-opengallery
+    [datasource]='this.data'
+    [config]='this.config'
+    (change)='onChange($event)'
+    (error)='onError($event)'
+    (selection)='onSelection($event)'
+    (open)='onOpen($event)'>
+</ng-opengallery>
+```
+
+If you want a full code demo, check out the repository on github [here](https://github.com/RLoris/lib-ng-opengallery)
+
+## Inputs
+| Property | Type | Note |
+| -------- | ---- | ---- |
+| [datasource] | Array(Media) | Media datasource with data |
+| [config] | Config | Configuration of the gallery (prefMediaHeight,spacing,layout,viewerEnabled,diaporamaDuration) |
+
+## Outputs
+| Event | Type | Note |
+| -------- | ---- | ---- |
+| (change) | Media | Emits the current media when the diaporama changes automatically or by the user (carousel,media viewer) |
+| (error) | Media | Emits the media that caused an error (could not be loaded) |
+| (selection) | Media | Emits the media that was selected by the user |
+| (open) | boolean | Emits a boolean when the media viewer is opened or closed |
+
+# To-Do / Improvements
+
+-   Add Squared layout
+-   Add animations support
+
+# NPM
+
+  This package is on `npm` https://www.npmjs.com/package/ng-opengallery
+
+# License
+
+  This package is under the MIT license

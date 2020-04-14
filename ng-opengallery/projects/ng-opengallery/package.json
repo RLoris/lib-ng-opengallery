@@ -1,5 +1,24 @@
 {
   "name": "ng-opengallery",
+  "author": {"name": "RLoris", "url": "https://github.com/RLoris"},
+  "description": "Opengallery is an Angular library component for efficient gallery rendering and interactions (images & videos)",
+  "license": "MIT",
+  "keywords": [
+    "gallery",
+    "image",
+    "video",
+    "lazy loading",
+    "viewport",
+    "viewer",
+    "carousel",
+    "simple",
+    "catalog",
+    "netflix",
+    "masonry",
+    "diaporama"
+  ],
+  "displayName": "Angular OpenGallery Library",
+  "repository": {"type": "github", "url": "https://github.com/RLoris/lib-ng-opengallery"},
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^9.0.7",
