@@ -63,7 +63,6 @@ export class NgOpengalleryComponent implements OnInit{
       (s: Media) => {
         if(this.config.viewerEnabled === true) {
           this.mediaIdx = this._datasource.find(m => m.media === s).position;
-          console.log(this.mediaIdx);
           this.showViewer = true;
         }
       }
@@ -73,7 +72,6 @@ export class NgOpengalleryComponent implements OnInit{
         this.showViewer = b;
       }
     )
-    console.log('main')
   }
 
   ngOnInit(): void {}

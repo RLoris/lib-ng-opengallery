@@ -45,9 +45,7 @@ export class MasonryGalleryComponent implements OnInit {
 
   private _spacing: number = 3;
   
-  constructor(private service: NgOpengalleryService) {
-    console.log('masonry');
-  }
+  constructor(private service: NgOpengalleryService) {}
 
   ngOnInit(): void {
     this._datasource.forEach(d => {

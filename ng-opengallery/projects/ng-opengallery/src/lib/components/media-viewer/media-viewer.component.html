@@ -3,15 +3,18 @@
     <span class="title"><h3>{{datasource[mediaIdx].media.title}}</h3></span>
     <div class="modal-content">
         <img *ngIf='datasource[mediaIdx].media.type === "img"' 
+            [class.animate]='datasource[mediaIdx].loaded'
             [src]='datasource[mediaIdx].media.url' 
             [alt]='datasource[mediaIdx].media.title'
-            (error)='onError(mediaIdx)'>
+            (error)='onError(mediaIdx)'
+            (load)='onLoad(datasource[mediaIdx])'>
         <video *ngIf='datasource[mediaIdx].media.type === "video"' 
+            [class.animate]='datasource[mediaIdx].loaded'
             [src]='datasource[mediaIdx].media.url' 
             controls
-            (error)='onError(mediaIdx)'>
+            (error)='onError(mediaIdx)'
+            (load)='onLoad(datasource[mediaIdx])'>
         </video>
-        
     </div>
     <div class="modal-control">
         <span class="control-overlay" >

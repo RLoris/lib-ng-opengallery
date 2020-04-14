@@ -111,8 +111,7 @@ img {
     }
 }
 
-
-@keyframes colour {
+@keyframes deblur {
     0% { 
         filter: blur(25px);
     }
@@ -122,5 +121,5 @@ img {
 }
 
 .animate {
-    animation: colour 1s linear;
+    animation: deblur 1s linear;
 }

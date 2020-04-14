@@ -86,15 +86,21 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
     }
   }
   
-  constructor(private service: NgOpengalleryService) {
-    console.log('viewer');
-  }
+  constructor(private service: NgOpengalleryService) {}
   
   ngOnDestroy(): void {
     this.stopDiaporama();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._datasource.forEach(d => {
+      d.ready = false;
+      d.loaded = false;
+      d.elementRef = null;
+      d.isInViewport = false;
+      d.position = -1;
+    });
+  }
 
   closeModal() {
     if(this._active) {
@@ -143,6 +149,10 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
     this._datasource[idx].error = true;
     this.service.error.emit(this._datasource[idx].media);
     this._datasource.splice(idx,1);
+  }
+
+  onLoad(mediaContainer: MediaContainer) {
+    mediaContainer.loaded = true;
   }
 
 }

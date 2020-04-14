@@ -1,11 +1,11 @@
-<media-viewer *ngIf='this.config && this.config.viewerEnabled && this._datasource'
+<media-viewer *ngIf='this.config && this.config.viewerEnabled && this._datasource && this._datasource.length !== 0'
     [datasource]='this._datasource'
     [diaporama]='this.config.diaporamaDuration'
     [mediaIdx]='this.mediaIdx'
     [active]='this.showViewer'>
 </media-viewer>
 
-<div *ngIf='this._datasource && this.config' 
+<div *ngIf='this.config && this._datasource && this._datasource.length !== 0'
     [ngSwitch]='this.config.layout' 
     class="center">
     <carousel-gallery *ngSwitchCase="'CAROUSEL'"

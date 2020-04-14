@@ -47,11 +47,8 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
 
   currentIdx: number = 0;
   showDescription:boolean = false;
-  animationClass = 'animate';
 
-  constructor(private service: NgOpengalleryService) {
-    console.log('carousel');
-  }
+  constructor(private service: NgOpengalleryService) {}
 
   ngOnDestroy(): void {
     this.stopCarousel();
@@ -73,6 +70,10 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
   }
 
   prev() {
+      if(this._datasource.length === 0) {
+        this.stopCarousel();
+        return;
+      }
       if(this.currentIdx === 0) {
         this.currentIdx = this.datasource.length - 1;
       } else {
@@ -82,6 +83,10 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
   }
 
   next() {
+      if(this._datasource.length === 0) {
+        this.stopCarousel();
+        return;
+      }
       if(this.currentIdx === this.datasource.length-1) {
         this.currentIdx = 0;
       } else {

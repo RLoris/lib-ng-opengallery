@@ -128,3 +128,16 @@
   .show-viewer {
       display: block;
   }
+
+  @keyframes deblur {
+    0% { 
+        filter: blur(25px);
+    }
+    100% {
+        filter: blur(0px);
+    }
+}
+
+.animate {
+    animation: deblur 1s linear;
+}

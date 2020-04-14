@@ -1,16 +1,25 @@
-<select (change)='changeLayout($event.target.value)'>
+<div style="text-align:center">
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+    <p>This project was made with &hearts; by RLoris</p>
+    <p>Use it, Share it, Improve it</p>
+</div>
+<br>
+Gallery layout: <select (change)='changeLayout($event.target.value)'>
     <option *ngFor='let s of styles' [selected]='s === this.config.layout.toString()'>{{s}}</option>
 </select>
 <br>
-Enable modal viewer <input type="checkbox" (change)='changeViewer($event.target.value)' [checked]='this.config.viewerEnabled === true'>
+Enable modal viewer: <input type="checkbox" (change)='changeViewer($event.target.value)' [checked]='this.config.viewerEnabled === true'>
 <br>
-Max height in pixel <input type="number" min="0" (change)='changeHeight($event.target.value)' [value]='this.config.prefMediaHeight' > 
+Prefered height in pixel: <input type="number" min="0" (change)='changeHeight($event.target.value)' [value]='this.config.prefMediaHeight' > 
 <br>
-Media spacing <input type="number" min="0" (change)='changeSpacing($event.target.value)' [value]='this.config.spacing'>
+Media spacing: <input type="number" min="0" (change)='changeSpacing($event.target.value)' [value]='this.config.spacing'>
 <br>
-Diaporama duration <input type="number" min="0" (change)='changeDuration($event.target.value)' [value]='this.config.diaporamaDuration'>
+Diaporama duration: <input type="number" min="0" (change)='changeDuration($event.target.value)' [value]='this.config.diaporamaDuration'>
 <br>
 <button (click)='loadSampleData()'>Load sample gallery</button>
+or add your own images <input type="file" multiple (change)='onFile($event.target.files)' accept="image/*,video/*">
 <hr>
 <ng-opengallery
     [datasource]='this.data'

@@ -50,9 +50,7 @@ export class SimpleGalleryComponent implements OnInit {
   @ViewChild('gallery', {static:true})
   private galleryElement: ElementRef<HTMLDivElement>;
   
-  constructor(private service: NgOpengalleryService) {
-    console.log('simple');
-  }
+  constructor(private service: NgOpengalleryService) {}
 
   ngOnInit(): void {
     this._datasource.forEach(d => {
@@ -89,7 +87,6 @@ export class SimpleGalleryComponent implements OnInit {
     media.width = element.videoWidth ? element.videoWidth : element.width;
     media.elementRef = element;
     this.computeMediasDimension(this.galleryElement.nativeElement.offsetWidth - 20);
-    console.log('loaded ' + media.media.title);
     media.loaded = true;
   }
 
