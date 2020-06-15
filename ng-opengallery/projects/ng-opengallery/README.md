@@ -59,6 +59,7 @@ If you want a full code demo, check out the repository on github [here](https://
 
 -   Add Squared layout
 -   Add animations support
+-   Add Iframe support
 
 # NPM
 
