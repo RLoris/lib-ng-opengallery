@@ -6,4 +6,5 @@ export class Config {
     layout: LayoutStyle = LayoutStyle.SIMPLE;
     viewerEnabled: boolean = true;
     diaporamaDuration: number = 3;
+    enableAutoPlay = true;
 }

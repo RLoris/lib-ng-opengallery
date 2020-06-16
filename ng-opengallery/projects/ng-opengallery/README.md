@@ -45,7 +45,7 @@ If you want a full code demo, check out the repository on github [here](https://
 | Property | Type | Note |
 | -------- | ---- | ---- |
 | [datasource] | Array(Media) | Media datasource with data |
-| [config] | Config | Configuration of the gallery (prefMediaHeight,spacing,layout,viewerEnabled,diaporamaDuration) |
+| [config] | Config | Configuration of the gallery (prefMediaHeight,spacing,layout,viewerEnabled,diaporamaDuration,enableAutoPlay) |
 
 ## Outputs
 | Event | Type | Note |

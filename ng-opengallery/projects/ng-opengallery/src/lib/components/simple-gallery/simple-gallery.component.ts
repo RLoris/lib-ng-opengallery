@@ -47,6 +47,17 @@ export class SimpleGalleryComponent implements OnInit {
 
   private _spacing: number = 3;
 
+  @Input()
+  public set autoplay(v: boolean) {
+    this._autoplay = v;
+  }
+
+  public get autoplay() {
+    return this._autoplay;
+  }
+
+  private _autoplay: boolean = true;
+
   @ViewChild('gallery', {static:true})
   private galleryElement: ElementRef<HTMLDivElement>;
   
@@ -65,6 +76,9 @@ export class SimpleGalleryComponent implements OnInit {
   
   select(idx: number) {
     this._datasource[idx].position = idx;
+    if(this._datasource[idx].loaded && this._datasource[idx].media.type === 'video' && this._datasource[idx].elementRef && !this._datasource[idx].elementRef.paused) {
+      this._datasource[idx].elementRef.pause();
+    }
     this.service.selection.emit(this._datasource[idx].media);
   }
 
@@ -74,7 +88,7 @@ export class SimpleGalleryComponent implements OnInit {
       media.ready = event;
     }
     if(media.media.type === 'video' && media.loaded) {
-      if(event) {
+      if(event && this.autoplay) {
         media.elementRef.play();
       } else {
         media.elementRef.pause();

@@ -48,7 +48,8 @@ export class NgOpengalleryComponent implements OnInit{
     layout: LayoutStyle.SIMPLE,
     prefMediaHeight: 250,
     spacing: 2,
-    viewerEnabled: true
+    viewerEnabled: true,
+    enableAutoPlay: true
   };
 
   mediaIdx: number = -1;

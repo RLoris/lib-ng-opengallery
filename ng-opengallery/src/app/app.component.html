@@ -12,6 +12,8 @@ Gallery layout: <select (change)='changeLayout($event.target.value)'>
 <br>
 Enable modal viewer: <input type="checkbox" (change)='changeViewer($event.target.value)' [checked]='this.config.viewerEnabled === true'>
 <br>
+Enable autoplay video: <input type="checkbox" (change)='changeAutoplay($event.target.value)' [checked]='this.config.enableAutoPlay === true'>
+<br>
 Prefered height in pixel: <input type="number" min="0" (change)='changeHeight($event.target.value)' [value]='this.config.prefMediaHeight' > 
 <br>
 Media spacing: <input type="number" min="0" (change)='changeSpacing($event.target.value)' [value]='this.config.spacing'>

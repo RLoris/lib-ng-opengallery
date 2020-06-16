@@ -27,7 +27,7 @@
                 [height]='prefHeight'
                 (loadedmetadata)='loadMedia(mediaContainer, $event.target)'
                 (error)='errorMedia(mediaContainer, $event.target, idx)'
-                autoplay 
+                [autoplay]='this.autoplay' 
                 loop >
             </video>
         </div>

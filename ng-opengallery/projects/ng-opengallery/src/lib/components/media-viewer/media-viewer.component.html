@@ -11,6 +11,7 @@
         <video *ngIf='datasource[mediaIdx].media.type === "video"' 
             [class.animate]='datasource[mediaIdx].loaded'
             [src]='datasource[mediaIdx].media.url' 
+            [autoplay]='this.autoplay'
             controls
             (error)='onError(mediaIdx)'
             (load)='onLoad(datasource[mediaIdx])'>

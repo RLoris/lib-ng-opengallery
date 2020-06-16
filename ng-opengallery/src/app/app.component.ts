@@ -17,7 +17,8 @@ export class AppComponent {
     layout: LayoutStyle.CAROUSEL,
     prefMediaHeight: 350,
     spacing: 3,
-    viewerEnabled: true
+    viewerEnabled: true,
+    enableAutoPlay: true
   } 
 
   styles: string[];
@@ -32,6 +33,10 @@ export class AppComponent {
 
   changeViewer(v) {
     this.config.viewerEnabled = !this.config.viewerEnabled;
+  }
+
+  changeAutoplay(v) {
+    this.config.enableAutoPlay = !this.config.enableAutoPlay;
   }
 
   changeHeight(v) {

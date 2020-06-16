@@ -17,7 +17,7 @@
         <video *ngIf='mediaContainer.ready && mediaContainer.media.type === "video"' 
             [src]='mediaContainer.media.previewUrl' 
             width="100%" 
-            autoplay 
+            [autoplay]='this.autoplay'
             (loadedmetadata)='loadMedia(mediaContainer,$event.target)'
             loop>
         </video>

@@ -12,7 +12,7 @@
         [src]='datasource[currentIdx].media.previewUrl'
         [style.height.px]='prefHeight' 
         style="width: 100%; object-fit: cover;" 
-        autoplay 
+        [autoplay]='this.autoplay' 
         loop
         (loadedmetadata)='loadMedia(datasource[currentIdx],$event.target)'
         (error)='errorMedia(datasource[currentIdx],currentIdx)'>

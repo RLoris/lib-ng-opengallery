@@ -60,6 +60,17 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
   
   private _active: boolean = false;
 
+  @Input()
+  public set autoplay(v: boolean) {
+    this._autoplay = v;
+  }
+
+  public get autoplay() {
+    return this._autoplay;
+  }
+
+  private _autoplay: boolean = true;
+
   diaporamaId = null;
 
   @HostListener('window:keyup', ['$event'])

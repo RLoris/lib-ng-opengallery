@@ -11,21 +11,25 @@
     <carousel-gallery *ngSwitchCase="'CAROUSEL'"
         [diaporama]='this.config.diaporamaDuration'
         [prefHeight]='this.config.prefMediaHeight'
+        [autoplay]='this.config.enableAutoPlay'
         [datasource]='this._datasource'>
     </carousel-gallery>
     <catalog-gallery *ngSwitchCase="'CATALOG'"
         [datasource]='this._datasource' 
         [prefHeight]='this.config.prefMediaHeight'
+        [autoplay]='this.config.enableAutoPlay'
         [spacing]='this.config.spacing'>
     </catalog-gallery>
     <masonry-gallery *ngSwitchCase="'MASONRY'" 
         [datasource]='this._datasource'
         [prefHeight]='this.config.prefMediaHeight'
+        [autoplay]='this.config.enableAutoPlay'
         [spacing]='this.config.spacing'>
     </masonry-gallery>
     <simple-gallery *ngSwitchCase="'SIMPLE'" 
         [datasource]='this._datasource'
         [prefHeight]='this.config.prefMediaHeight'
+        [autoplay]='this.config.enableAutoPlay'
         [spacing]='this.config.spacing'>
     </simple-gallery>
 </div>

@@ -45,6 +45,17 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
 
   private _prefHeight = 200;
 
+  @Input()
+  public set autoplay(v: boolean) {
+    this._autoplay = v;
+  }
+
+  public get autoplay() {
+    return this._autoplay;
+  }
+
+  private _autoplay: boolean = true;
+
   currentIdx: number = 0;
   showDescription:boolean = false;
 
@@ -66,6 +77,9 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
 
   select(idx: number) {
     this._datasource[idx].position = idx;
+    if(this._datasource[idx].loaded && this._datasource[idx].media.type === 'video' && this._datasource[idx].elementRef && !this._datasource[idx].elementRef.paused) {
+      this._datasource[idx].elementRef.pause();
+    }
     this.service.selection.emit(this._datasource[idx].media);
   }
 
