@@ -22,6 +22,8 @@ Diaporama duration: <input type="number" min="0" (change)='changeDuration($event
 <br>
 <button (click)='loadSampleData()'>Load sample gallery</button>
 or add your own images <input type="file" multiple (change)='onFile($event.target.files)' accept="image/*,video/*">
+<br>
+<button (click)='removeRandomItem()'>remove random item</button>
 <hr>
 <ng-opengallery
     [datasource]='this.data'

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, IterableDiffers, IterableDiffer } from '@angular/core';
 import { MediaContainer } from './models/media-container';
 import { Config } from './models/config';
 import { Media } from './models/media';
@@ -24,16 +24,12 @@ export class NgOpengalleryComponent implements OnInit{
   @Input()
   public set datasource(v: Media[]) {
     if(v) {
-      const arr = [];
-      for (let idx = 0; idx < v.length; idx++) {
-        const media = v[idx];
-        arr.push(new MediaContainer(media));
-      }
-      this._datasource = arr;
+      this._dataref = v;
     }
   }
 
-  _datasource: MediaContainer[];
+  _datasource: MediaContainer[] = [];
+  _dataref: Media[];
 
   @Input()
   public set config(v: Config) {
@@ -54,8 +50,9 @@ export class NgOpengalleryComponent implements OnInit{
 
   mediaIdx: number = -1;
   showViewer: boolean = false;
+  private iterableDiffer: IterableDiffer<[]>;
 
-  constructor(service: NgOpengalleryService) {
+  constructor(private service: NgOpengalleryService, iterableDiffers: IterableDiffers) {
     this.selection = service.selection;
     this.error = service.error;
     this.change = service.change;
@@ -73,8 +70,26 @@ export class NgOpengalleryComponent implements OnInit{
         this.showViewer = b;
       }
     )
+    this.iterableDiffer = iterableDiffers.find([]).create();
   }
 
   ngOnInit(): void {}
+
+  ngDoCheck() {
+    let changes = this.iterableDiffer.diff(this._dataref as []);
+    if(changes) {
+      changes.forEachAddedItem((r) => {
+          const media = r.item as any;
+          this._datasource.push(new MediaContainer(media));
+          this.service.differ.emit(media);
+      });
+      changes.forEachRemovedItem((r) => {
+          const media = r.item as any;
+          const idx = this._datasource.findIndex((m,idx) => m.media === media);
+          this._datasource.splice(idx, 1);
+          this.service.differ.emit(media);
+      });
+    }
+  }
 
 }

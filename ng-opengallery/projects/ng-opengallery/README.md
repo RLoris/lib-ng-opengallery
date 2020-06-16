@@ -15,6 +15,7 @@ Try it out here: [DEMO](https://rloris.github.io/lib-ng-opengallery/) or clone t
 * Different layouts to choose from and customise the way you want it (simple, catalog, carousel, masonry)
 * Include a media viewer modal to click and view the media (diaporama support, keystroke support)
 * Automatically hides media when they cannot be loaded
+* Detect dynamically new changes in medias and adapt itself
 
 # How to use
 
@@ -56,7 +57,7 @@ If you want a full code demo, check out the repository on github [here](https://
 | (open) | boolean | Emits a boolean when the media viewer is opened or closed |
 
 # To-Do / Improvements
-
+-   Move some logic in service and remove from components
 -   Add Squared layout
 -   Add animations support
 -   Add Iframe support

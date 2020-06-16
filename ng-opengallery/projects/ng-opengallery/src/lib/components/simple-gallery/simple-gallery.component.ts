@@ -1,13 +1,14 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, IterableDiffers, IterableDiffer, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MediaContainer } from '../../models/media-container';
 import { NgOpengalleryService } from '../../ng-opengallery.service'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'simple-gallery',
   templateUrl: './simple-gallery.component.html',
   styleUrls: ['./simple-gallery.component.css']
 })
-export class SimpleGalleryComponent implements OnInit {
+export class SimpleGalleryComponent implements OnInit, OnDestroy {
 
   @Input()
   public set datasource(v: MediaContainer[]) {
@@ -60,9 +61,10 @@ export class SimpleGalleryComponent implements OnInit {
 
   @ViewChild('gallery', {static:true})
   private galleryElement: ElementRef<HTMLDivElement>;
-  
-  constructor(private service: NgOpengalleryService) {}
+  private differSub: Subscription;
 
+  constructor(private service: NgOpengalleryService) {}
+  
   ngOnInit(): void {
     this._datasource.forEach(d => {
       d.ready = false;
@@ -71,7 +73,14 @@ export class SimpleGalleryComponent implements OnInit {
       d.isInViewport = false;
       d.position = -1;
     });
+    this.differSub = this.service.differ.subscribe((m) => this.computeMediasDimension(this.galleryElement.nativeElement.offsetWidth - 20));
     this.computeMediasDimension(this.galleryElement.nativeElement.offsetWidth - 20);
+  }
+
+  ngOnDestroy(): void {
+    if(this.differSub) {
+      this.differSub.unsubscribe();
+    }
   }
   
   select(idx: number) {

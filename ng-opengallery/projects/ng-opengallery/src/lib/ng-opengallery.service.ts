@@ -14,5 +14,7 @@ export class NgOpengalleryService {
 
   open: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  differ: EventEmitter<Media> = new EventEmitter<Media>();
+
   constructor() { }
 }

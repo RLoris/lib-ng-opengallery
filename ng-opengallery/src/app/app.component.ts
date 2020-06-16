@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class AppComponent {
   title = 'ng-opengallery';
 
-  data: Media[];
+  data: Media[] = [];
 
   config: Config = {
     diaporamaDuration: 3,
@@ -90,7 +90,7 @@ export class AppComponent {
   }
 
   onFile(files: FileList) {
-    this.data = [];
+    // pushing in data []
     for (let idx = 0; idx < files.length; idx++) {
       const f = files[idx];
       if(f.type.match('image/*')) {
@@ -98,6 +98,14 @@ export class AppComponent {
       } else if(f.type.match('video/*')) {
         this.data.push(new Media(this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(f)), f.name, 'video'));
       }
+    }
+  }
+
+  removeRandomItem() {
+    if(this.data.length > 0) {
+      const idx = Math.floor(Math.random() * this.data.length);
+      console.log("removing: ", this.data[idx]);
+      this.data.splice(idx, 1);
     }
   }
 
