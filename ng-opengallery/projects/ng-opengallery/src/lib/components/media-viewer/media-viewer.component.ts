@@ -18,7 +18,7 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
     return this._datasource;
   }
   private _datasource: MediaContainer[];
-  
+
   @Input()
   public set diaporama(v: number) {
     if(v > 0) {
@@ -34,7 +34,7 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
       this._mediaIdx = v;
     }
   }
-  
+
   public get mediaIdx() {
     return this._mediaIdx;
   }
@@ -44,7 +44,7 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
   @Input()
   public set active(v: boolean) {
     if(this._mediaIdx >= 0 && this._mediaIdx < this._datasource.length) {
-      this._active = v;
+      setTimeout(() => this._active = v, 0);
     }
     if(this._active === false) {
       this.closeModal();
@@ -57,7 +57,7 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
   public get active() {
     return this._active;
   }
-  
+
   private _active: boolean = false;
 
   @Input()
@@ -75,30 +75,31 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if(event.keyCode === 39) {
+
+    if(event.code === 'ArrowRight') {
       this.next();
     }
 
-    if(event.keyCode === 37) {
+    if(event.code === 'ArrowLeft') {
       this.prev();
     }
 
-    if(event.keyCode === 27) {
+    if(event.code === 'Escape') {
       this.closeModal();
     }
 
-    if(event.keyCode === 32) {
+    if(event.code === 'Space') {
       if(this.diaporamaId !== null) {
         this.stopDiaporama();
       } else {
         this.startDiaporama();
       }
-      
+
     }
   }
-  
+
   constructor(private service: NgOpengalleryService) {}
-  
+
   ngOnDestroy(): void {
     this.stopDiaporama();
   }
@@ -115,6 +116,7 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
 
   closeModal() {
     if(this._active) {
+      this._mediaIdx = -1;
       this._active = false;
       this.stopDiaporama();
       this.service.open.emit(this._active);

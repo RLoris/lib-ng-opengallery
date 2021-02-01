@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, IterableDiffers, IterableDiffer, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { MediaContainer } from '../../models/media-container';
 import { NgOpengalleryService } from '../../ng-opengallery.service'
 import { Subscription } from 'rxjs';
@@ -26,7 +26,7 @@ export class SimpleGalleryComponent implements OnInit, OnDestroy {
       this._prefHeight = v;
       this.computeMediasDimension(this.galleryElement.nativeElement.offsetWidth - 17);
     }
-  } 
+  }
 
   public get prefHeight() {
     return this._prefHeight;
@@ -39,7 +39,7 @@ export class SimpleGalleryComponent implements OnInit, OnDestroy {
     if(v >= 0) {
       this._spacing = v;
       this.computeMediasDimension(this.galleryElement.nativeElement.offsetWidth - 17);
-    }  
+    }
   }
 
   public get spacing() {
@@ -64,7 +64,7 @@ export class SimpleGalleryComponent implements OnInit, OnDestroy {
   private differSub: Subscription;
 
   constructor(private service: NgOpengalleryService) {}
-  
+
   ngOnInit(): void {
     this._datasource.forEach(d => {
       d.ready = false;
@@ -82,8 +82,9 @@ export class SimpleGalleryComponent implements OnInit, OnDestroy {
       this.differSub.unsubscribe();
     }
   }
-  
-  select(idx: number) {
+
+  select(event, idx: number) {
+    event.stopPropagation();
     this._datasource[idx].position = idx;
     if(this._datasource[idx].loaded && this._datasource[idx].media.type === 'video' && this._datasource[idx].elementRef && !this._datasource[idx].elementRef.paused) {
       this._datasource[idx].elementRef.pause();

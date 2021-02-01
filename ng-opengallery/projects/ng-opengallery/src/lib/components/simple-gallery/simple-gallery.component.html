@@ -1,7 +1,7 @@
 <div class="gallery" #gallery (window:resize)="onResize()">
-    <div *ngFor='let mediaContainer of datasource; let idx = index' 
+    <div *ngFor='let mediaContainer of datasource; let idx = index'
         class="item-gallery"
-        (click)='select(idx)'
+        (click)='select($event, idx)'
         [style.height.px]='getMediaHeight(mediaContainer)'
         [style.width.px]='getMediaWidth(mediaContainer)'
         [style.margin-right.px]='mediaContainer.widthMargin'
@@ -10,21 +10,21 @@
         [style.margin-bottom.px]='mediaContainer.heightMargin'
         snInViewport
         (inViewportChange)="onInViewportChange($event, mediaContainer)">
-        <img *ngIf='mediaContainer.ready && mediaContainer.media.type === "img"' 
-            class="media" 
-            [src]='mediaContainer.media.previewUrl' 
+        <img *ngIf='mediaContainer.ready && mediaContainer.media.type === "img"'
+            class="media"
+            [src]='mediaContainer.media.previewUrl'
             [style.height.px]='mediaContainer.computedHeight'
             [style.width.px]='mediaContainer.computedWidth'
             [height]='prefHeight'
             (load)='loadMedia(mediaContainer, $event.target)'
             (error)='onError(mediaContainer,idx)'
         />
-        <video *ngIf='mediaContainer.ready && mediaContainer.media.type === "video"' 
-            class="media" 
-            [src]='mediaContainer.media.previewUrl' 
+        <video *ngIf='mediaContainer.ready && mediaContainer.media.type === "video"'
+            class="media"
+            [src]='mediaContainer.media.previewUrl'
             [style.height.px]='mediaContainer.computedHeight'
             [style.width.px]='mediaContainer.computedWidth'
-            [height]='prefHeight' 
+            [height]='prefHeight'
             (loadedmetadata)='loadMedia(mediaContainer, $event.target)'
             [autoplay]='mediaContainer.isInViewport && this.autoplay'
             [loop]='mediaContainer.isInViewport'>

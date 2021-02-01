@@ -1,22 +1,22 @@
 <div class="masonry" #gallery
     [style.column-gap.em]='spacing'
     [style.column-width.px]='prefHeight'>
-    <div *ngFor='let mediaContainer of datasource; let idx = index' 
+    <div *ngFor='let mediaContainer of datasource; let idx = index'
         class="item"
         [style.margin-bottom.em]='spacing'
         [style.height]='getMediaHeight(mediaContainer)'
         style="width: 100%;"
-        (click)='select(idx)'
-        snInViewport 
+        (click)='select($event, idx)'
+        snInViewport
         (inViewportChange)="onInViewportChange($event, mediaContainer)">
-        <img *ngIf='mediaContainer.ready && mediaContainer.media.type === "img"' 
-            [src]='mediaContainer.media.previewUrl' 
+        <img *ngIf='mediaContainer.ready && mediaContainer.media.type === "img"'
+            [src]='mediaContainer.media.previewUrl'
             (load)='loadMedia(mediaContainer,$event.target)'
             (error)='errorMedia(mediaContainer,$event, idx)'
             width="100%"/>
-        <video *ngIf='mediaContainer.ready && mediaContainer.media.type === "video"' 
-            [src]='mediaContainer.media.previewUrl' 
-            width="100%" 
+        <video *ngIf='mediaContainer.ready && mediaContainer.media.type === "video"'
+            [src]='mediaContainer.media.previewUrl'
+            width="100%"
             [autoplay]='this.autoplay'
             (loadedmetadata)='loadMedia(mediaContainer,$event.target)'
             loop>

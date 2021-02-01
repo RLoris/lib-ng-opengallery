@@ -29,7 +29,7 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
   }
 
   private _diaporama = 0;
-  
+
   private diaporamaId = null;
 
   @Input()
@@ -37,7 +37,7 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
     if(v > 0) {
       this._prefHeight = v;
     }
-  } 
+  }
 
   public get prefHeight() {
     return this._prefHeight;
@@ -75,7 +75,8 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
     });
   }
 
-  select(idx: number) {
+  select(event, idx: number) {
+    event.stopPropagation();
     this._datasource[idx].position = idx;
     if(this._datasource[idx].loaded && this._datasource[idx].media.type === 'video' && this._datasource[idx].elementRef && !this._datasource[idx].elementRef.paused) {
       this._datasource[idx].elementRef.pause();

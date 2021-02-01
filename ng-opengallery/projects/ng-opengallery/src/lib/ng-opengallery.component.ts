@@ -59,9 +59,11 @@ export class NgOpengalleryComponent implements OnInit{
     this.open = service.open;
     this.selection.subscribe(
       (s: Media) => {
-        if(this.config.viewerEnabled === true) {
-          this.mediaIdx = this._datasource.find(m => m.media === s).position;
-          this.showViewer = true;
+        if (this.config.viewerEnabled === true) {
+          this.mediaIdx = this._datasource.findIndex(m => m.media === s);
+          if (this.mediaIdx !== -1) {
+            this.showViewer = true;
+          }
         }
       }
     )

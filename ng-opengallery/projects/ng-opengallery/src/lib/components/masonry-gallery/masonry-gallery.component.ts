@@ -8,7 +8,7 @@ import { NgOpengalleryService } from '../../ng-opengallery.service';
   styleUrls: ['./masonry-gallery.component.css']
 })
 export class MasonryGalleryComponent implements OnInit {
-  
+
   @Input()
   public set datasource(v: MediaContainer[]) {
     this._datasource = v;
@@ -24,7 +24,7 @@ export class MasonryGalleryComponent implements OnInit {
     if(v > 0) {
       this._prefHeight = v;
     }
-  } 
+  }
 
   public get prefHeight() {
     return this._prefHeight;
@@ -36,7 +36,7 @@ export class MasonryGalleryComponent implements OnInit {
   public set spacing(v: number) {
     if(v >= 0) {
       this._spacing = v;
-    }  
+    }
   }
 
   public get spacing() {
@@ -55,7 +55,7 @@ export class MasonryGalleryComponent implements OnInit {
   }
 
   private _autoplay: boolean = true;
-  
+
   constructor(private service: NgOpengalleryService) {}
 
   ngOnInit(): void {
@@ -68,7 +68,8 @@ export class MasonryGalleryComponent implements OnInit {
     });
   }
 
-  select(idx: number) {
+  select(event, idx: number) {
+    event.stopPropagation();
     this._datasource[idx].position = idx;
     if(this._datasource[idx].loaded && this._datasource[idx].media.type === 'video' && this._datasource[idx].elementRef && !this._datasource[idx].elementRef.paused) {
       this._datasource[idx].elementRef.pause();
@@ -89,7 +90,7 @@ export class MasonryGalleryComponent implements OnInit {
       }
     }
   }
-  
+
   loadMedia(media: MediaContainer, element: any) {
     media.height = element.videoHeight ? element.videoHeight : element.height;
     media.width = element.videoWidth ? element.videoWidth : element.width;
