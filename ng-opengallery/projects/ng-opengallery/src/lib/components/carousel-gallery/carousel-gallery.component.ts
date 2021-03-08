@@ -2,6 +2,8 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MediaContainer } from '../../models/media-container';
 import { NgOpengalleryService } from '../../ng-opengallery.service';
 
+// [class.animate]='datasource[currentIdx].loaded'
+
 @Component({
   selector: 'carousel-gallery',
   templateUrl: './carousel-gallery.component.html',
@@ -56,6 +58,17 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
 
   private _autoplay: boolean = true;
 
+  @Input()
+  public set effectClass(v: string) {
+    this._effectClass = v;
+  }
+
+  public get effectClass(): string {
+    return this._effectClass;
+  }
+
+  private _effectClass: string;
+
   currentIdx: number = 0;
   showDescription:boolean = false;
 
@@ -84,11 +97,20 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
     this.service.selection.emit(this._datasource[idx].media);
   }
 
+  prevBtn() {
+    this.stopCarousel();
+    this.startCarousel();
+    this.prev();
+  }
+
   prev() {
       if(this._datasource.length === 0) {
         this.stopCarousel();
         return;
       }
+      const temp = this.effectClass;
+      this.effectClass = null;
+      setTimeout(() => this.effectClass = temp, 0);
       if(this.currentIdx === 0) {
         this.currentIdx = this.datasource.length - 1;
       } else {
@@ -97,11 +119,20 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
       this.service.change.emit(this._datasource[this.currentIdx].media);
   }
 
+  nextBtn() {
+    this.stopCarousel();
+    this.startCarousel();
+    this.next();
+  }
+
   next() {
       if(this._datasource.length === 0) {
         this.stopCarousel();
         return;
       }
+      const temp = this.effectClass;
+      this.effectClass = null;
+      setTimeout(() => this.effectClass = temp, 0);
       if(this.currentIdx === this.datasource.length-1) {
         this.currentIdx = 0;
       } else {
@@ -138,7 +169,7 @@ export class CarouselGalleryComponent implements OnInit, OnDestroy {
     this.startCarousel();
   }
 
-  loadMedia(mediaContainer: MediaContainer,element: any) {
+  loadMedia(mediaContainer: MediaContainer, element: any) {
     mediaContainer.elementRef = element;
     mediaContainer.loaded = true;
   }

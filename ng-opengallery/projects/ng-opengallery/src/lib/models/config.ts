@@ -5,6 +5,8 @@ export class Config {
     spacing: number = 5;
     layout: LayoutStyle = LayoutStyle.SIMPLE;
     viewerEnabled: boolean = true;
+    viewerFullsize: boolean = false;
     diaporamaDuration: number = 3;
-    enableAutoPlay = true;
+    enableAutoPlay: boolean = true;
+    effectClass: string = null;
 }

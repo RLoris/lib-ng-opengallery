@@ -46,7 +46,16 @@ If you want a full code demo, check out the repository on github [here](https://
 | Property | Type | Note |
 | -------- | ---- | ---- |
 | [datasource] | Array(Media) | Media datasource with data |
-| [config] | Config | Configuration of the gallery (prefMediaHeight,spacing,layout,viewerEnabled,diaporamaDuration,enableAutoPlay) |
+| [config] | Config | Configuration of the gallery (prefMediaHeight,spacing,layout,viewerEnabled,viewerFullsize,diaporamaDuration,enableAutoPlay) |
+| [config.prefMediaHeight] | number | prefered height size of media in the layouts, default is 250 |
+| [config.spacing] | number | spacing between media, is not taken into account for the caroussel layout, default is 2 |
+| [config.layout] | LayoutStyle | Specify the media layout you want (SIMPLE, CATALOG, CAROUSEL, MASONRY), default is SIMPLE |
+| [config.viewerEnabled] | boolean | Specify whether the modal viewer should appear when a media is clicked, default is true |
+| [config.viewerFullsize] | boolean | Specify whether the media in the modal viewer should take the full width and height available, default is false |
+| [config.diaporamaDuration] | number | Duration for the diaporama in the modal viewer, if 0 is specified, diaporama is disabled, default is 3 |
+| [config.enableAutoPlay] | number | Specify if a media should start when it enters the viewport, default is true |
+| [config.effectClass] | string | Special effect applied on media defined by the user, if null no effect is applied, default is null |
+
 
 ## Outputs
 | Event | Type | Note |

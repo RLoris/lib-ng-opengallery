@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { MediaContainer } from '../../models/media-container';
-import { NgOpengalleryService } from '../../ng-opengallery.service'
+import { NgOpengalleryService } from '../../ng-opengallery.service';
 import { Subscription } from 'rxjs';
 
 @Component({

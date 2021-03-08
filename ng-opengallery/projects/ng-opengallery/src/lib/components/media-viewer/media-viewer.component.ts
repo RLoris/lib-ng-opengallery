@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener, Input, OnDestroy } from '@angular/core
 import { MediaContainer } from '../../models/media-container';
 import { NgOpengalleryService } from '../../ng-opengallery.service';
 
+// [class.animate]='datasource[mediaIdx].loaded'
 @Component({
   selector: 'media-viewer',
   templateUrl: './media-viewer.component.html',
@@ -21,9 +22,13 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
 
   @Input()
   public set diaporama(v: number) {
-    if(v > 0) {
+    if (v >= 0) {
       this._diaporama = v;
     }
+  }
+
+  public get diaporama(): number {
+    return this._diaporama;
   }
 
   private _diaporama = 2;
@@ -73,6 +78,28 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
 
   diaporamaId = null;
 
+  @Input()
+  public set fullsize(v: boolean) {
+    this._fullsize = v;
+  }
+
+  public get fullsize(): boolean {
+    return this._fullsize;
+  }
+
+  private _fullsize = false;
+
+  @Input()
+  public set effectClass(v: string) {
+    this._effectClass = v;
+  }
+
+  public get effectClass(): string {
+    return this._effectClass;
+  }
+
+  private _effectClass: string;
+
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
 
@@ -116,10 +143,10 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
 
   closeModal() {
     if(this._active) {
+      this.service.open.emit(false);
       this._mediaIdx = -1;
       this._active = false;
       this.stopDiaporama();
-      this.service.open.emit(this._active);
     }
   }
 
@@ -138,6 +165,9 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
 
   prev() {
     if(this._active) {
+      const temp = this.effectClass;
+      this.effectClass = null;
+      setTimeout(() => this.effectClass = temp, 0);
       if(this._mediaIdx === 0) {
         this._mediaIdx = this.datasource.length - 1;
       } else {
@@ -149,6 +179,9 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
 
   next() {
     if(this._active) {
+      const temp = this.effectClass;
+      this.effectClass = null;
+      setTimeout(() => this.effectClass = temp, 0);
       if(this._mediaIdx === this.datasource.length-1) {
         this._mediaIdx = 0;
       } else {
@@ -158,10 +191,20 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
     }
   }
 
+  exitModal(event) {
+    if (event.srcElement.classList.contains('modal-content')) {
+      this.closeModal();
+    }
+  }
+
+  changeSize() {
+    this._fullsize = !this._fullsize;
+  }
+
   onError(idx: number) {
     this._datasource[idx].error = true;
     this.service.error.emit(this._datasource[idx].media);
-    this._datasource.splice(idx,1);
+    this._datasource.splice(idx, 1);
   }
 
   onLoad(mediaContainer: MediaContainer) {

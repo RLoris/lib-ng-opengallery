@@ -1,16 +1,22 @@
-<div *ngIf='this.active' class="modal">
+<div *ngIf='this.active' class="modal" (click)='exitModal($event)'>
     <span class="index"><h3>{{mediaIdx+1}}/{{datasource.length}}</h3></span>
     <span class="title"><h3>{{datasource[mediaIdx].media.title}}</h3></span>
-    <div class="modal-content">
-        <img *ngIf='datasource[mediaIdx].media.type === "img"' 
-            [class.animate]='datasource[mediaIdx].loaded'
-            [src]='datasource[mediaIdx].media.url' 
+    <div class="modal-content" >
+        <img *ngIf='datasource[mediaIdx].media.type === "img"'
+            [ngClass]='effectClass'
+            [class.min-size]='!this.fullsize'
+            [class.full-size]='this.fullsize'
+            [src]='datasource[mediaIdx].media.url'
             [alt]='datasource[mediaIdx].media.title'
             (error)='onError(mediaIdx)'
             (load)='onLoad(datasource[mediaIdx])'>
-        <video *ngIf='datasource[mediaIdx].media.type === "video"' 
-            [class.animate]='datasource[mediaIdx].loaded'
-            [src]='datasource[mediaIdx].media.url' 
+        <video *ngIf='datasource[mediaIdx].media.type === "video"'
+            [ngClass]='effectClass'
+            [style.height]='datasource[mediaIdx].height > datasource[mediaIdx].width ? "100%" : "auto"'
+            [style.width]='datasource[mediaIdx].width > datasource[mediaIdx].height ? "100%" : "auto"'
+            [class.min-size]='!this.fullsize'
+            [class.full-size]='this.fullsize'
+            [src]='datasource[mediaIdx].media.url'
             [autoplay]='this.autoplay'
             controls
             (error)='onError(mediaIdx)'
@@ -20,9 +26,10 @@
     <div class="modal-control">
         <span class="control-overlay" >
             <span class="controls" (click)='prev()'>&#10094;</span>
-            <span *ngIf='!this.diaporamaId' class="controls" (click)='startDiaporama()'>&#9654;</span>
+            <span *ngIf='!this.diaporamaId && this.diaporama > 0' class="controls" (click)='startDiaporama()'>&#9654;</span>
             <span *ngIf='this.diaporamaId' class="controls" (click)='stopDiaporama()'>&#9724;</span>
             <span class="controls close" (click)='closeModal()'>&#10005;</span>
+            <span class="controls" (click)='changeSize()'>&#9974;</span>
             <span class="controls" (click)="next()">&#10095;</span>
         </span>
     </div>

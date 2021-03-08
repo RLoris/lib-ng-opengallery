@@ -2,31 +2,34 @@
     [datasource]='this._datasource'
     [diaporama]='this.config.diaporamaDuration'
     [mediaIdx]='this.mediaIdx'
+    [fullsize]='this.config.viewerFullsize'
+    [effectClass]='this.config.effectClass'
     [active]='this.showViewer'>
 </media-viewer>
 
 <div *ngIf='this.config && this._datasource && this._datasource.length !== 0'
-    [ngSwitch]='this.config.layout' 
+    [ngSwitch]='this.config.layout'
     class="center">
     <carousel-gallery *ngSwitchCase="'CAROUSEL'"
         [diaporama]='this.config.diaporamaDuration'
         [prefHeight]='this.config.prefMediaHeight'
         [autoplay]='this.config.enableAutoPlay'
+        [effectClass]='this.config.effectClass'
         [datasource]='this._datasource'>
     </carousel-gallery>
     <catalog-gallery *ngSwitchCase="'CATALOG'"
-        [datasource]='this._datasource' 
+        [datasource]='this._datasource'
         [prefHeight]='this.config.prefMediaHeight'
         [autoplay]='this.config.enableAutoPlay'
         [spacing]='this.config.spacing'>
     </catalog-gallery>
-    <masonry-gallery *ngSwitchCase="'MASONRY'" 
+    <masonry-gallery *ngSwitchCase="'MASONRY'"
         [datasource]='this._datasource'
         [prefHeight]='this.config.prefMediaHeight'
         [autoplay]='this.config.enableAutoPlay'
         [spacing]='this.config.spacing'>
     </masonry-gallery>
-    <simple-gallery *ngSwitchCase="'SIMPLE'" 
+    <simple-gallery *ngSwitchCase="'SIMPLE'"
         [datasource]='this._datasource'
         [prefHeight]='this.config.prefMediaHeight'
         [autoplay]='this.config.enableAutoPlay'

@@ -10,7 +10,7 @@ import { NgOpengalleryService } from './ng-opengallery.service';
   templateUrl: './ng-opengallery.component.html',
   styleUrls: ['./ng-opengallery.component.css']
 })
-export class NgOpengalleryComponent implements OnInit{
+export class NgOpengalleryComponent implements OnInit {
 
   @Output()
   change: EventEmitter<Media>;
@@ -45,7 +45,9 @@ export class NgOpengalleryComponent implements OnInit{
     prefMediaHeight: 250,
     spacing: 2,
     viewerEnabled: true,
-    enableAutoPlay: true
+    viewerFullsize: false,
+    enableAutoPlay: true,
+    effectClass: null
   };
 
   mediaIdx: number = -1;
@@ -66,12 +68,12 @@ export class NgOpengalleryComponent implements OnInit{
           }
         }
       }
-    )
+    );
     this.open.subscribe(
       (b) => {
         this.showViewer = b;
       }
-    )
+    );
     this.iterableDiffer = iterableDiffers.find([]).create();
   }
 
