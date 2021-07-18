@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit, Input, Output, EventEmitter, IterableDiffers, IterableDiffer } from '@angular/core';
 import { MediaContainer } from './models/media-container';
 import { Config } from './models/config';
@@ -23,7 +24,7 @@ export class NgOpengalleryComponent implements OnInit {
 
   @Input()
   public set datasource(v: Media[]) {
-    if(v) {
+    if (v) {
       this._dataref = v;
     }
   }
@@ -39,6 +40,7 @@ export class NgOpengalleryComponent implements OnInit {
   public get config() {
     return this._config;
   }
+
   private _config: Config = {
     diaporamaDuration: 3,
     layout: LayoutStyle.SIMPLE,
@@ -50,11 +52,12 @@ export class NgOpengalleryComponent implements OnInit {
     effectClass: null
   };
 
-  mediaIdx: number = -1;
-  showViewer: boolean = false;
   private iterableDiffer: IterableDiffer<[]>;
+  // private kvDiffer: KeyValueDiffer<any, any>;
+  private showEmitter: EventEmitter<number> = new EventEmitter();
+  showMedia$: Observable<number> = this.showEmitter.asObservable();
 
-  constructor(private service: NgOpengalleryService, iterableDiffers: IterableDiffers) {
+  constructor(private service: NgOpengalleryService, iterableDiffers: IterableDiffers, /*kvDiffers: KeyValueDiffers*/) {
     this.selection = service.selection;
     this.error = service.error;
     this.change = service.change;
@@ -62,26 +65,22 @@ export class NgOpengalleryComponent implements OnInit {
     this.selection.subscribe(
       (s: Media) => {
         if (this.config.viewerEnabled === true) {
-          this.mediaIdx = this._datasource.findIndex(m => m.media === s);
-          if (this.mediaIdx !== -1) {
-            this.showViewer = true;
+          const media = this._datasource.findIndex(m => m.media === s);
+          if (media !== -1) {
+            this.showEmitter.next(media);
           }
         }
       }
     );
-    this.open.subscribe(
-      (b) => {
-        this.showViewer = b;
-      }
-    );
     this.iterableDiffer = iterableDiffers.find([]).create();
+    // this.kvDiffer = kvDiffers.find(this._config).create();
   }
 
   ngOnInit(): void {}
 
   ngDoCheck() {
-    let changes = this.iterableDiffer.diff(this._dataref as []);
-    if(changes) {
+    const changes = this.iterableDiffer.diff(this._dataref as []);
+    if (changes) {
       changes.forEachAddedItem((r) => {
           const media = r.item as any;
           this._datasource.push(new MediaContainer(media));
@@ -89,11 +88,17 @@ export class NgOpengalleryComponent implements OnInit {
       });
       changes.forEachRemovedItem((r) => {
           const media = r.item as any;
-          const idx = this._datasource.findIndex((m,idx) => m.media === media);
+          const idx = this._datasource.findIndex((m) => m.media === media);
           this._datasource.splice(idx, 1);
           this.service.differ.emit(media);
       });
     }
+    // TODO : avoid config update when not necessary
+    /*const configChanges = this.kvDiffer.diff(this._config);
+    if (configChanges) {
+      configChanges.forEachChangedItem((r) => {
+      });
+    }*/
   }
 
 }

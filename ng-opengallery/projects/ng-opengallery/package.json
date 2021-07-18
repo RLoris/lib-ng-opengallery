@@ -19,10 +19,11 @@
   ],
   "displayName": "Angular OpenGallery Library",
   "repository": {"type": "github", "url": "https://github.com/RLoris/lib-ng-opengallery"},
-  "version": "0.0.5",
+  "version": "0.0.6",
   "peerDependencies": {
     "@angular/common": "^9.0.7",
     "@angular/core": "^9.0.7",
-    "tslib": "^1.10.0"
+    "tslib": "^1.10.0",
+    "@thisissoon/angular-inviewport": "^4.2.2"
   }
 }

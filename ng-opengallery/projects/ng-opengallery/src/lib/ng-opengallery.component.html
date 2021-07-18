@@ -1,10 +1,9 @@
 <media-viewer *ngIf='this.config && this.config.viewerEnabled && this._datasource && this._datasource.length !== 0'
     [datasource]='this._datasource'
     [diaporama]='this.config.diaporamaDuration'
-    [mediaIdx]='this.mediaIdx'
     [fullsize]='this.config.viewerFullsize'
     [effectClass]='this.config.effectClass'
-    [active]='this.showViewer'>
+    [active]='this.showMedia$'>
 </media-viewer>
 
 <div *ngIf='this.config && this._datasource && this._datasource.length !== 0'

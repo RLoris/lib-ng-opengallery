@@ -1,4 +1,4 @@
-<div *ngIf='this.active' class="modal" (click)='exitModal($event)'>
+<div *ngIf='this.show' class="modal" (click)='exitModal($event)'>
     <span class="index"><h3>{{mediaIdx+1}}/{{datasource.length}}</h3></span>
     <span class="title"><h3>{{datasource[mediaIdx].media.title}}</h3></span>
     <div class="modal-content" >

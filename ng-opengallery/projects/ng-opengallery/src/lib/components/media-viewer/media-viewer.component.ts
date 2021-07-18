@@ -1,8 +1,8 @@
+import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, HostListener, Input, OnDestroy } from '@angular/core';
 import { MediaContainer } from '../../models/media-container';
 import { NgOpengalleryService } from '../../ng-opengallery.service';
 
-// [class.animate]='datasource[mediaIdx].loaded'
 @Component({
   selector: 'media-viewer',
   templateUrl: './media-viewer.component.html',
@@ -32,38 +32,39 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
   }
 
   private _diaporama = 2;
+  private activeSub: Subscription;
+  mediaIdx = -1;
 
   @Input()
-  public set mediaIdx(v: number) {
-    if(v >= 0 && v < this._datasource.length) {
-      this._mediaIdx = v;
+  public set active(o: Observable<number>) {
+    if (this.activeSub) {
+      this.activeSub.unsubscribe();
     }
-  }
-
-  public get mediaIdx() {
-    return this._mediaIdx;
-  }
-
-  private _mediaIdx: number = -1;
-
-  @Input()
-  public set active(v: boolean) {
-    if(this._mediaIdx >= 0 && this._mediaIdx < this._datasource.length) {
-      setTimeout(() => this._active = v, 0);
-    }
-    if(this._active === false) {
-      this.closeModal();
-    } else {
-      this.service.open.emit(this._active);
-      this.service.change.emit(this._datasource[this._mediaIdx].media);
-    }
+    this.activeSub = o.subscribe(
+      (v: number) => {
+        if (v >= 0 && v < this._datasource.length) {
+          this.mediaIdx = v;
+          this.show = true;
+        } else {
+          this.show = false;
+        }
+        if (this.show === false) {
+          this.closeModal();
+        } else {
+          this.service.open.emit(this.show);
+          this.service.change.emit(this._datasource[this.mediaIdx].media);
+        }
+      }
+    );
   }
 
   public get active() {
     return this._active;
   }
 
-  private _active: boolean = false;
+  private _active: Observable<number>;
+
+  show = false;
 
   @Input()
   public set autoplay(v: boolean) {
@@ -74,7 +75,7 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
     return this._autoplay;
   }
 
-  private _autoplay: boolean = true;
+  private _autoplay = true;
 
   diaporamaId = null;
 
@@ -103,20 +104,20 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
 
-    if(event.code === 'ArrowRight') {
+    if (event.code === 'ArrowRight') {
       this.next();
     }
 
-    if(event.code === 'ArrowLeft') {
+    if (event.code === 'ArrowLeft') {
       this.prev();
     }
 
-    if(event.code === 'Escape') {
+    if (event.code === 'Escape') {
       this.closeModal();
     }
 
-    if(event.code === 'Space') {
-      if(this.diaporamaId !== null) {
+    if (event.code === 'Space') {
+      if (this.diaporamaId !== null) {
         this.stopDiaporama();
       } else {
         this.startDiaporama();
@@ -142,52 +143,52 @@ export class MediaViewerComponent implements OnInit, OnDestroy {
   }
 
   closeModal() {
-    if(this._active) {
+    if (this.show) {
       this.service.open.emit(false);
-      this._mediaIdx = -1;
-      this._active = false;
+      this.mediaIdx = -1;
+      this.show = false;
       this.stopDiaporama();
     }
   }
 
   startDiaporama() {
-    if(this._diaporama > 0 && !this.diaporamaId) {
+    if (this._diaporama > 0 && !this.diaporamaId) {
       this.diaporamaId = setInterval(() => this.next(), this._diaporama * 1000);
     }
   }
 
   stopDiaporama() {
-    if(this.diaporamaId) {
+    if (this.diaporamaId) {
       clearInterval(this.diaporamaId);
       this.diaporamaId = null;
     }
   }
 
   prev() {
-    if(this._active) {
+    if (this.show) {
       const temp = this.effectClass;
       this.effectClass = null;
       setTimeout(() => this.effectClass = temp, 0);
-      if(this._mediaIdx === 0) {
-        this._mediaIdx = this.datasource.length - 1;
+      if (this.mediaIdx === 0) {
+        this.mediaIdx = this.datasource.length - 1;
       } else {
-        this._mediaIdx--;
+        this.mediaIdx--;
       }
-      this.service.change.emit(this._datasource[this._mediaIdx].media);
+      this.service.change.emit(this._datasource[this.mediaIdx].media);
     }
   }
 
   next() {
-    if(this._active) {
+    if (this.show) {
       const temp = this.effectClass;
       this.effectClass = null;
       setTimeout(() => this.effectClass = temp, 0);
-      if(this._mediaIdx === this.datasource.length-1) {
-        this._mediaIdx = 0;
+      if (this.mediaIdx === (this.datasource.length - 1)) {
+        this.mediaIdx = 0;
       } else {
-        this._mediaIdx++;
+        this.mediaIdx++;
       }
-      this.service.change.emit(this._datasource[this._mediaIdx].media);
+      this.service.change.emit(this._datasource[this.mediaIdx].media);
     }
   }
 
